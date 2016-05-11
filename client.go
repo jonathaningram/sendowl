@@ -1,7 +1,9 @@
 package sendowl
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -26,6 +28,8 @@ func init() {
 		panic(err)
 	}
 }
+
+var ErrNotFound = errors.New("not found")
 
 type ResponseNotJSONError struct {
 	ContentType string
@@ -108,9 +112,22 @@ func (c *Client) do(ctx context.Context, r *http.Request, data interface{}) erro
 
 // decodeResponse decodes the response from Sendowl as JSON.
 func (c *Client) decodeResponse(resp *http.Response, data interface{}) error {
+	body := &bytes.Buffer{}
+	r := io.TeeReader(resp.Body, body)
+	b, err := ioutil.ReadAll(r)
+	if err != nil {
+		return err
+	}
+	c.logger.Printf("%s", b)
 	ct := resp.Header.Get("Content-Type")
 	if !strings.HasPrefix(ct, "application/json") {
 		return &ResponseNotJSONError{ContentType: ct}
 	}
-	return json.NewDecoder(resp.Body).Decode(data)
+	if resp.StatusCode == http.StatusNotFound {
+		return ErrNotFound
+	}
+	if resp.StatusCode > 299 {
+		return fmt.Errorf("sendowl returned non-2xx status %d", resp.StatusCode)
+	}
+	return json.NewDecoder(body).Decode(data)
 }
