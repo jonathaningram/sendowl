@@ -1,4 +1,3 @@
-// Package sendowl provides functionality for interacting with the Sendowl API.
 package sendowl
 
 import (
