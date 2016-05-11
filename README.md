@@ -21,7 +21,7 @@ import (
 
 	"golang.org/x/net/context"
 
-	"github.com/jonathaningram/sendowl"
+	"github.com/jonathaningram/sendowl-golang"
 )
 
 func main() {
