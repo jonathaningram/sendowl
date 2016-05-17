@@ -14,7 +14,7 @@ const (
 
 type ProductID int
 
-// UnmarshalJSON implements json.Unmarshaler.
+// UnmarshalJSON implements the json.Unmarshaler interface.
 func (id *ProductID) UnmarshalJSON(data []byte) error {
 	var i int64
 	if err := json.Unmarshal(data, &i); err != nil {

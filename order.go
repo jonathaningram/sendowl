@@ -9,7 +9,7 @@ import (
 
 type OrderID int
 
-// UnmarshalJSON implements json.Unmarshaler.
+// UnmarshalJSON implements the json.Unmarshaler interface.
 func (id *OrderID) UnmarshalJSON(data []byte) error {
 	var i int64
 	if err := json.Unmarshal(data, &i); err != nil {

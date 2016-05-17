@@ -8,7 +8,7 @@ import (
 
 type Price float64
 
-// UnmarshalJSON implements json.Unmarshaler.
+// UnmarshalJSON implements the json.Unmarshaler interface.
 func (p *Price) UnmarshalJSON(data []byte) error {
 	var f float64
 	if err := json.Unmarshal(data, &f); err != nil {
