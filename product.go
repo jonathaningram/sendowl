@@ -47,4 +47,5 @@ type Product struct {
 	Type          ProductType `json:"product_type"`    // Type of the product.
 	Price         Price       `json:"price"`           // Price of the product (in dollars and cents).
 	InstantBuyURL string      `json:"instant_buy_url"` // InstantBuyURL for purchasing the product.
+	PDFStamping   bool        `json:"pdf_stamping"`
 }

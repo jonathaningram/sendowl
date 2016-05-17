@@ -10,11 +10,12 @@ import (
 
 // CreateProductRequest is an API representation of a create product request.
 type CreateProductRequest struct {
-	Name       string      // Name of the product.
-	Type       ProductType // Type of the product.
-	Price      Price       // Price of the product.
-	Attachment io.Reader
-	Filename   string // Filename of the file to attach.
+	Name        string      // Name of the product.
+	Type        ProductType // Type of the product.
+	Price       Price       // Price of the product.
+	Attachment  io.Reader
+	Filename    string // Filename of the file to attach.
+	PDFStamping bool
 }
 
 func (r *CreateProductRequest) body() (io.Reader, string, error) {
@@ -23,6 +24,9 @@ func (r *CreateProductRequest) body() (io.Reader, string, error) {
 	w.WriteField("product[name]", r.Name)
 	w.WriteField("product[product_type]", string(r.Type))
 	w.WriteField("product[price]", r.Price.String())
+	if r.PDFStamping {
+		w.WriteField("product[pdf_stamping]", "true")
+	}
 	part, err := w.CreateFormFile("product[attachment]", r.Filename)
 	if err != nil {
 		return nil, "", err
