@@ -7,7 +7,7 @@ Go client library for https://www.sendowl.com/developers/api/introduction
 ## Install
 
 ```
-go get github.com/jonathaningram/sendowl-golang
+go get github.com/jonathaningram/sendowl
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ import (
 
 	"golang.org/x/net/context"
 
-	"github.com/jonathaningram/sendowl-golang"
+	"github.com/jonathaningram/sendowl"
 )
 
 func main() {
