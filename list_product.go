@@ -13,9 +13,13 @@ type ListProductsRequest struct {
 }
 
 // ListProductsResponse is an API representation of a list products response.
-type ListProductsResponse []listProductsResponseItem
+type ListProductsResponse []ListProductsResponseItem
 
-type listProductsResponseItem struct {
+func (r *ListProductsResponse) Items() []ListProductsResponseItem {
+	return []ListProductsResponseItem(*r)
+}
+
+type ListProductsResponseItem struct {
 	Product `json:"product"`
 }
 
