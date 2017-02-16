@@ -1,6 +1,6 @@
 # Sendowl API Go Client Library
 
-Go client library for https://www.sendowl.com/developers/api/introduction
+Go client library for the [Sendowl API](https://www.sendowl.com/developers/api/introduction).
 
 > Note: implementation is incomplete. Please submit a PR for improvements.
 
