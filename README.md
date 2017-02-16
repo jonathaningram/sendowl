@@ -4,6 +4,10 @@ Go client library for https://www.sendowl.com/developers/api/introduction
 
 > Note: implementation is incomplete. Please submit a PR for improvements.
 
+## Documentation
+
+For full documentation see: [https://godoc.org/github.com/jonathaningram/sendowl](https://godoc.org/github.com/jonathaningram/sendowl).
+
 ## Install
 
 ```
