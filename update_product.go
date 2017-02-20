@@ -18,6 +18,9 @@ type UpdateProductRequest struct {
 	Attachment  io.Reader
 	Filename    string // Filename of the file to attach.
 	PDFStamping bool
+	// SelfHostedURL is the url of the file to be issued at download (only
+	// useable when the product is self hosted).
+	SelfHostedURL string
 }
 
 func (r *UpdateProductRequest) body() (io.Reader, string, error) {
@@ -29,6 +32,7 @@ func (r *UpdateProductRequest) body() (io.Reader, string, error) {
 	if r.PDFStamping {
 		w.WriteField("product[pdf_stamping]", "true")
 	}
+	w.WriteField("product[self_hosted_url]", r.SelfHostedURL)
 	part, err := w.CreateFormFile("product[attachment]", r.Filename)
 	if err != nil {
 		return nil, "", err

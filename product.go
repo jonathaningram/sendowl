@@ -42,10 +42,18 @@ func ProductIDFromInt(i int64) ProductID {
 }
 
 type Product struct {
-	ID            ProductID   `json:"id"`              // ID of the product.
-	Name          string      `json:"name"`            // Name of the product.
-	Type          ProductType `json:"product_type"`    // Type of the product.
-	Price         Price       `json:"price"`           // Price of the product (in dollars and cents).
-	InstantBuyURL string      `json:"instant_buy_url"` // InstantBuyURL for purchasing the product.
-	PDFStamping   bool        `json:"pdf_stamping"`
+	// ID of the product.
+	ID ProductID `json:"id"`
+	// Name of the product.
+	Name string `json:"name"`
+	// Type of the product.
+	Type ProductType `json:"product_type"`
+	// Price of the product (in dollars and cents).
+	Price Price `json:"price"`
+	// InstantBuyURL for purchasing the product.
+	InstantBuyURL string `json:"instant_buy_url"`
+	PDFStamping   bool   `json:"pdf_stamping"`
+	// SelfHostedURL is the url of the file to be issued at download (only
+	// useable when the product is self hosted).
+	SelfHostedURL string `json:"self_hosted_url"`
 }
