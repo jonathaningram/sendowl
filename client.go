@@ -33,6 +33,7 @@ var ErrNotFound = errors.New("sendowl: not found")
 
 type ResponseNotJSONError struct {
 	ContentType string
+	Body        []byte
 }
 
 func (e *ResponseNotJSONError) Error() string {
@@ -121,7 +122,7 @@ func (c *Client) decodeResponse(resp *http.Response, data interface{}) error {
 	c.logger.Printf("%s", b)
 	ct := resp.Header.Get("Content-Type")
 	if !strings.HasPrefix(ct, "application/json") {
-		return &ResponseNotJSONError{ContentType: ct}
+		return &ResponseNotJSONError{ContentType: ct, Body: body.Bytes()}
 	}
 	if resp.StatusCode == http.StatusNotFound {
 		return ErrNotFound
