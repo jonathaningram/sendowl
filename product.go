@@ -18,7 +18,7 @@ type ProductID int
 func (id *ProductID) UnmarshalJSON(data []byte) error {
 	var i int64
 	if err := json.Unmarshal(data, &i); err != nil {
-		return fmt.Errorf("ProductID should be an int64, got %T: %v", data, data)
+		return fmt.Errorf("sendowl: ProductID should be an int64, got %T: %v", data, data)
 	}
 	*id = ProductIDFromInt(i)
 	return nil

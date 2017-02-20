@@ -13,7 +13,7 @@ type OrderID int
 func (id *OrderID) UnmarshalJSON(data []byte) error {
 	var i int64
 	if err := json.Unmarshal(data, &i); err != nil {
-		return fmt.Errorf("OrderID should be an int64, got %T: %v", data, data)
+		return fmt.Errorf("sendowl: OrderID should be an int64, got %T: %v", data, data)
 	}
 	*id = OrderIDFromInt(i)
 	return nil

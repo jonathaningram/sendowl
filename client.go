@@ -29,14 +29,14 @@ func init() {
 	}
 }
 
-var ErrNotFound = errors.New("not found")
+var ErrNotFound = errors.New("sendowl: not found")
 
 type ResponseNotJSONError struct {
 	ContentType string
 }
 
 func (e *ResponseNotJSONError) Error() string {
-	return fmt.Sprintf("response is not JSON (got Content-Type %q)", e.ContentType)
+	return fmt.Sprintf("sendowl: response is not JSON (got Content-Type %q)", e.ContentType)
 }
 
 // New creates a new Client which can be used to make requests to Sendowl
@@ -127,7 +127,7 @@ func (c *Client) decodeResponse(resp *http.Response, data interface{}) error {
 		return ErrNotFound
 	}
 	if resp.StatusCode > 299 {
-		return fmt.Errorf("sendowl returned non-2xx status %d", resp.StatusCode)
+		return fmt.Errorf("sendowl: call returned non-2xx status %d", resp.StatusCode)
 	}
 	return json.NewDecoder(body).Decode(data)
 }
