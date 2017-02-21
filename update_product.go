@@ -33,12 +33,14 @@ func (r *UpdateProductRequest) body() (io.Reader, string, error) {
 		w.WriteField("product[pdf_stamping]", "true")
 	}
 	w.WriteField("product[self_hosted_url]", r.SelfHostedURL)
-	part, err := w.CreateFormFile("product[attachment]", r.Filename)
-	if err != nil {
-		return nil, "", err
-	}
-	if _, err := io.Copy(part, r.Attachment); err != nil {
-		return nil, "", err
+	if r.Attachment != nil {
+		part, err := w.CreateFormFile("product[attachment]", r.Filename)
+		if err != nil {
+			return nil, "", err
+		}
+		if _, err := io.Copy(part, r.Attachment); err != nil {
+			return nil, "", err
+		}
 	}
 	if err := w.Close(); err != nil {
 		return nil, "", err
