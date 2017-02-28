@@ -11,6 +11,11 @@ type OrderID int
 
 // UnmarshalJSON implements the json.Unmarshaler interface.
 func (id *OrderID) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err == nil {
+		*id = OrderIDFromString(s)
+		return nil
+	}
 	var i int64
 	if err := json.Unmarshal(data, &i); err != nil {
 		return fmt.Errorf("sendowl: OrderID should be an int64, got %T: %v", data, data)
