@@ -42,8 +42,10 @@ func OrderIDFromInt(i int64) OrderID {
 }
 
 type Order struct {
-	ID   OrderID `json:"id"` // ID of the order.
-	Cart struct {
+	ID         OrderID `json:"id"` // ID of the order.
+	BuyerEmail string  `json:"buyer_email"`
+	BuyerName  string  `json:"buyer_name"`
+	Cart       struct {
 		Items []struct {
 			Item struct {
 				ProductID        `json:"product_id"`
