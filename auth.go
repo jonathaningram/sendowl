@@ -9,7 +9,7 @@ import (
 	"net/url"
 )
 
-const signatureQueryParam = "signature"
+const SignatureQueryParam = "signature"
 
 func Signature(signingKey, signingKeySecret string, vs url.Values) string {
 	return base64.StdEncoding.EncodeToString(generateSignature(signingKey, signingKeySecret, vs))
@@ -23,7 +23,7 @@ func generateSignature(signingKey, signingKeySecret string, vs url.Values) []byt
 
 func VerifySignatureFromRequest(signingKey, signingKeySecret string, r *http.Request) bool {
 	expectedMAC := []byte(Signature(signingKey, signingKeySecret, r.URL.Query()))
-	givenMAC := []byte(r.URL.Query().Get(signatureQueryParam))
+	givenMAC := []byte(r.URL.Query().Get(SignatureQueryParam))
 	return hmac.Equal(expectedMAC, givenMAC)
 }
 
