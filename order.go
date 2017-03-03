@@ -55,6 +55,18 @@ type Order struct {
 				ValidUntil       *time.Time `json:"valid_until"`
 				DownloadAttempts int        `json:"download_attempts"`
 			} `json:"cart_item"`
+
+			// Note: webhook returns the data in these fields directly, not in
+			// the "cart_item" field above.
+			// TODO(jon): probably best to find a better way to do this. Either
+			// a "webhook" order needs to be used instead, or maybe the Order
+			// type can be initialized with a webhook=true bool, and then
+			// implement UnmarshalJSON to decode the different JSON schemas.
+
+			Product          Product    `json:"product"`
+			Quantity         int        `json:"quantity"`
+			ValidUntil       *time.Time `json:"valid_until"`
+			DownloadAttempts int        `json:"download_attempts"`
 		} `json:"cart_items"`
 		CompletedCheckoutAt time.Time `json:"completed_checkout_at"`
 		StartedCheckoutAt   time.Time `json:"started_checkout_at"`

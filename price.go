@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type Price float64
@@ -16,6 +17,7 @@ func (p *Price) UnmarshalJSON(data []byte) error {
 		if err := json.Unmarshal(data, &s); err != nil {
 			return fmt.Errorf("sendowl: Price should either be a float64 or a string, got %T: %v", data, data)
 		}
+		s = strings.TrimPrefix(s, "$") // Order completed webhook prefixes price with dollar sign.
 		f, err = strconv.ParseFloat(s, 64)
 		if err != nil {
 			return fmt.Errorf("sendowl: failed to parse Price string %q as a float: %s", s, err)
